@@ -1,0 +1,46 @@
+<html>
+<head>
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#login").click(function(){
+		
+		if ($("#username").val()=='' || $("#password").val()=='' ){	
+		$("#container").html("Please enter a value");
+		return false;
+		}
+		
+					$.ajax({
+			  method: "POST",
+			  url: "/login" ,
+			data :{'username':$("#username").val(),'password':$("#password").val()}
+				})	
+			  .done(function( msg ) {
+			  	console.log((msg));
+				var val=$.parseJSON(msg);
+				if(val.value=="Success"){
+					console.log('here');
+					window.location.href = "/views/user.html";
+				}
+				else {
+					$("#container").html("Login Failed!");
+				}
+				
+				  	
+					});
+   });
+  });
+
+</script>
+</head>
+
+<body>
+
+<form method="POST" action="/login">
+<div id="container"></div>
+Username	<input type="text" name ="username" id ="username">
+Password	<input type="text" name ="password" id ="password" >
+	<input id="login" type="button" value="submit">
+</form>
+</body>
+</html>

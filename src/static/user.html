@@ -1,0 +1,32 @@
+<html>
+<head>
+
+
+</head>
+
+<body>
+User's information
+<ul id="userinfo">
+
+</ul>
+</body>
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+				$.ajax({
+		  method: "GET",
+		  url: "/todos" 
+	})
+  .done(function( msg ) {
+  	console.log(msg);
+	  	 $.each($.parseJSON(msg), function(key,value){
+	  	 	$("#userinfo").append("<li>"+value.name +"</li>");
+				 console.log(value.name);
+		});
+   
+  });
+
+	});
+
+</script>
+</html>
