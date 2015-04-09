@@ -40,9 +40,14 @@ func NewRouter() *mux.Router {
 }
 
 var routes = Routes{
-
 	Route{
-		"Login",
+		"LoginGet",
+		"GET",
+		"/",
+		LoginGet,
+	},
+	Route{
+		"LoginPost",
 		"POST",
 		"/login",
 		Login,
@@ -58,5 +63,25 @@ var routes = Routes{
 		"GET",
 		"/todos/{todoId}",
 		TodoShow,
+	},
+
+	Route{
+		"GetAreas",
+		"GET",
+		"/Area/",
+		GetAreas,
+	},
+
+	Route{
+		"GetScene",
+		"GET",
+		"/Scene/{areaId}",
+		GetScene,
+	},
+	Route{
+		"GetZone",
+		"GET",
+		"/Zone/{sceneId}",
+		GetZone,
 	},
 }

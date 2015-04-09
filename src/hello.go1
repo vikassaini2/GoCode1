@@ -1,0 +1,44 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	_ "github.com/mattn/go-sqlite3"
+)
+
+func main() {
+
+	db, err := sql.Open("sqlite3", "./foo.db")
+
+	checkErr(err)
+	//db.Exec("CREATE TABLE userinfo(username)")
+	checkErr(err)
+	// insert
+	stmt, err := db.Prepare("INSERT INTO userinfo(username) values(?)")
+	checkErr(err)
+
+	for i := 0; i <= 10; i++ {
+		res, err := stmt.Exec("astaxie")
+		checkErr(err)
+
+		id, err := res.LastInsertId()
+		checkErr(err)
+		fmt.Println(id)
+	}
+
+	// query
+	rows, err := db.Query("SELECT * FROM userinfo")
+	checkErr(err)
+
+	for rows.Next() {
+
+		var username string
+		err = rows.Scan(&username)
+		checkErr(err)
+
+		fmt.Println(username)
+	}
+
+	db.Close()
+
+}
